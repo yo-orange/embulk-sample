@@ -1,0 +1,6 @@
+in:
+  type: mysql
+  host: mysql_from
+  user: mysql_from
+  password: "password"
+  database: mysql_from

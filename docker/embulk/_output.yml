@@ -1,0 +1,6 @@
+out:
+  type: mysql
+  host: mysql_to
+  user: mysql_to
+  password: "password"
+  database: mysql_to

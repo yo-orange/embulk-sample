@@ -1,0 +1,34 @@
+version: "3"
+services:
+  embulk:
+    build:
+      context: .
+      dockerfile: ./docker/embulk/Dockerfile.embulk
+    image: embulk_sample
+    container_name: embulk_sample
+    command: /bin/sh -c "while :; do sleep 10; done"
+    volumes:
+      - ./docker/embulk:/app
+    working_dir: /app
+  mysql_from:
+    image: mysql:8.0.22
+    container_name: mysql_from
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: from
+      MYSQL_USER: mysql_from
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./docker/mysql_from/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql_from/my.cnf:/etc/mysql/conf.d/my.cnf
+  mysql_to:
+    image: mysql:8.0.22
+    container_name: mysql_to
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: to
+      MYSQL_USER: mysql_to
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./docker/mysql_to/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql_to/my.cnf:/etc/mysql/conf.d/my.cnf
